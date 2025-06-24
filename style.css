@@ -1,0 +1,39 @@
+body {
+  background: #181818;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#gameCanvas {
+  background: #222;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #0008;
+}
+
+#gameOver {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333d;
+  padding: 30px 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px #000a;
+}
+
+button {
+  padding: 10px 30px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 8px;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+}
+button:hover {
+  background: #388e3c;
+}
