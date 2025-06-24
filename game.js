@@ -30,10 +30,16 @@ let lastBallEndY = launchY;
 let speedMultiplier = 1;
 let speedButtonsVisible = false;
 let speedButtonTimeout = null;
+let splitNextTurn = false;
 
 function resetBalls() {
+  let totalBalls = numBalls;
+  if (splitNextTurn) {
+    totalBalls *= 2;
+    splitNextTurn = false;
+  }
   balls = [];
-  for (let i = 0; i < numBalls; i++) {
+  for (let i = 0; i < totalBalls; i++) {
     balls.push({
       x: lastBallEndX,
       y: lastBallEndY,
@@ -306,8 +312,8 @@ function updateBalls() {
               }
             }
           } else if (p.type === 'split') {
-            // Split: double the number of balls next turn
-            ballsToAdd += numBalls;
+            // Split: double the number of balls next turn (only for one turn)
+            splitNextTurn = true;
           } else if (p.type === 'laser') {
             // Laser: destroy all bricks in the same row as the powerup
             let py = p.y;
@@ -404,6 +410,7 @@ function gameLoop() {
         resetBalls();
         aiming = true;
         hideSpeedButtons();
+        speedMultiplier = 1; // Reset speed multiplier after each turn
         if (speedButtonTimeout) {
           clearTimeout(speedButtonTimeout);
           speedButtonTimeout = null;
