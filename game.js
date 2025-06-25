@@ -307,7 +307,7 @@ function updateBalls() {
             for (let b of bricks.slice()) {
               let bx = b.x + BRICK_WIDTH/2;
               let by = b.y + BRICK_HEIGHT/2;
-              if (Math.abs(bx - p.x) <= (BRICK_WIDTH + BRICK_PADDING)*1.5 && Math.abs(by - p.y) <= (BRICK_HEIGHT + BRICK_PADDING)*1.5) {
+              if (Math.abs(bx - p.x) <= (BRICK_WIDTH + BRICK_PADDING)*2.5 && Math.abs(by - p.y) <= (BRICK_HEIGHT + BRICK_PADDING)*2.5) {
                 bricks = bricks.filter(br => br !== b);
               }
             }
