@@ -51,6 +51,7 @@ function resetBalls() {
   }
 }
 
+
 function createBricks() {
   // Place bricks, never fill the row completely
   let brickPositions = [];
