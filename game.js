@@ -31,7 +31,6 @@ let speedMultiplier = 1;
 let speedButtonsVisible = false;
 let speedButtonTimeout = null;
 let splitNextTurn = false;
-let speed10xTimeout = null;
 
 function resetBalls() {
   let totalBalls = numBalls;
@@ -404,10 +403,6 @@ function hideSpeedButtons() {
   if (btn2x) btn2x.remove();
   if (btn4x) btn4x.remove();
   if (btn10x) btn10x.remove();
-  if (speed10xTimeout) {
-    clearTimeout(speed10xTimeout);
-    speed10xTimeout = null;
-  }
 }
 
 function gameLoop() {
