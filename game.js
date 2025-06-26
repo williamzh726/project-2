@@ -31,6 +31,7 @@ let speedMultiplier = 1;
 let speedButtonsVisible = false;
 let speedButtonTimeout = null;
 let splitNextTurn = false;
+let speed10xTimeout = null;
 
 function resetBalls() {
   let totalBalls = numBalls;
@@ -87,6 +88,11 @@ function createBricks() {
       let extra = Math.floor(Math.random() * (1 + Math.floor(turn / 5)));
       let ballFactor = Math.floor(numBalls / 10);
       let health = Math.floor((base + extra + ballFactor) * expFactor);
+      // Cap health to 3x the max possible balls (current + available +1 ball powerups)
+      let availableBallPowerups = powerups.filter(p => !p.collected && p.type === 'ball').length;
+      let maxPossibleBalls = numBalls + availableBallPowerups;
+      let maxHealth = Math.max(1, 3 * maxPossibleBalls);
+      health = Math.min(health, maxHealth);
       bricks.push({
         x,
         y,
@@ -379,6 +385,12 @@ function showSpeedButtons() {
     btn4x.style.margin = '10px';
     btn4x.onclick = () => setSpeed(4);
     document.body.appendChild(btn4x);
+    const btn10x = document.createElement('button');
+    btn10x.id = 'speed10x';
+    btn10x.textContent = '10x Speed';
+    btn10x.style.margin = '10px';
+    btn10x.onclick = () => setSpeed(10);
+    document.body.appendChild(btn10x);
   }
 }
 
@@ -387,8 +399,14 @@ function hideSpeedButtons() {
   speedButtonsVisible = false;
   const btn2x = document.getElementById('speed2x');
   const btn4x = document.getElementById('speed4x');
+  const btn10x = document.getElementById('speed10x');
   if (btn2x) btn2x.remove();
   if (btn4x) btn4x.remove();
+  if (btn10x) btn10x.remove();
+  if (speed10xTimeout) {
+    clearTimeout(speed10xTimeout);
+    speed10xTimeout = null;
+  }
 }
 
 function gameLoop() {
